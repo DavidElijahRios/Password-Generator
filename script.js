@@ -10,102 +10,86 @@ var special = "!#$%&)(*+-./:;?@[]^_{}~";
 
 var generateBtn = document.querySelector("#generate");
 
-//TODO need to write a function named writePassword to run below
+
 // This function needs to return a password
 var generatePassword = function () {
-  //I need to create a variable that holds user answers
+  
   var userPassLength = prompt("how many characters would you like your password to contain?");
   console.log(userPassLength)
   //want to end function if user presses cancel on the prompt button
   if (!userPassLength) {
     return;
  }
- //I also need to use a conditional statement to limit the user to 8 to 128 characters
+ //
   if (userPassLength < 8) {
        window.alert("Password character length must be between 8 and 128 characters!");
-       //I want to give user a second chance at choosing the allowed amount of characters
-       var userPassLength = prompt("how many characters would you like your password to contain?");
-       console.log(userPassLength)
+      
+      return;
    } else if (userPassLength > 128) {
     window.alert("Password character length must be between 8 and 128 characters!");
-    //I want to give user a second chance at choosing the allowed amount of characters
-    var userPassLength = prompt("how many characters would you like your password to contain?");
-    console.log(userPassLength)
+    
+    return;
    } 
-
+   //I need to create a variable that holds user answers
+   var allUserInput = "";
+   //Variable to hold at least one of each user input selection to ensure that no matter even or odd password length it will include 
+   //the min amount of 1 of the desired characters.
+   var finalPassword = "";
    // need a confirm window with "Click OK if you would like to include special characters.
    var userCharacter = window.confirm("Click OK if you would like to include special characters.");
    //conditional statements to see weather true or false to use or not use special characters
    if (userCharacter === true) {
-     userCharacter = userCharacter
-     console.log(userCharacter)
-   } else if (userCharacter === false) {
-     userCharacter = userCharacter
-     console.log(userCharacter)
+     //adding user input to corresponding character to choose from
+     allUserInput += special
+     //variable to ensure that at least one of the selected character will generate in the password
+     // and have it select a random one of the length of the special global variable.
+     finalPassword += special [Math.floor(Math.random() * special.length)]
+    
    }
 
    // need a confirm window with "Click OK if you would like to include Numeric characters.
    var userNumb = window.confirm("Click OK if you would like to include Numeric characters.");
    //conditional statements to see weather true or false to use or not use Numeric characters
    if (userNumb === true) {
-    userNumb = userNumb
-    console.log(userNumb)
-  } else if (userNumb === false) {
-    userNumb = userNumb
-    console.log(userNumb)
+     allUserInput += numbers
+     finalPassword += numbers [Math.floor(Math.random() * numbers.length)]
+    
   }
    // need a confirm window with "Click OK if you would like to include lowerCase characters.
    var userLower = window.confirm("Click OK if you would like to include lowerCase characters.");
    //conditional statements to see weather true or false to use or not use lowerCase characters
    if (userLower === true) {
-    userLower = userLower
-    console.log(userLower)
-  } else if (userLower === false) {
-    userLower = userLower
-    console.log(userLower)
+     allUserInput += lowercase
+     finalPassword += lowercase [Math.floor(Math.random() * lowercase.length)]
+  
   }
    // need a confirm window with "Click OK if you would like to include uppercaseCase characters.
    var userUpper = window.confirm("Click OK if you would like to include uppercaseCase characters."); 
    //conditional statements to see weather true or false to use or not use upperCase characters
    if (userUpper === true) {
-    userUpper = userUpper
-    console.log(userUpper)
-  } else if (userUpper === false) {
-    userUpper = userUpper
-    console.log(userUpper)
+     allUserInput += uppercase
+     finalPassword += uppercase [Math.floor(Math.random() * uppercase.length)]
+  
   }
 
    //Lastly need to get all user input data to be able to give parameters for password to generate and tell it what options were chosen
-   var allUserInput = [userCharacter, userNumb, userLower, userUpper];
+   
       console.log(allUserInput)
-
-    if (userCharacter === true) {
-      userCharacter = special
-      console.log(userCharacter)
-    } 
-
-    if (userNumb === true) {
-      userNumb = numbers
-    }
-
-    if (userLower === true) {
-      userLower = lowercase 
-    }
-
-    if (userUpper === true) {
-      userUpper = uppercase
-    }
-
+      console.log(finalPassword)
+    
+    // this will turn the string user inputed to am integer
     var length = parseInt(userPassLength)
     console.log(userPassLength)
-      var passedUserInput = [userCharacter, userNumb, userLower, userUpper]
-      console.log(passedUserInput)
-
-     var index = Math.floor(Math.random() * passedUserInput.length);
-    var finalPassword = passedUserInput[index]
-     return finalPassword;
-  //could get the text to appear in the generator but could not get the right parameters to generate the password.
    
+     // for loop let the i be the starting point of finalPassword (which would have been user input)
+     // and if the number is less than the amount of characters user selected add 1
+     for (let i = finalPassword.length; i < length; i++) {
+       //this variable selects random characters of what user inputted
+      var index = Math.floor(Math.random() * allUserInput.length);
+      finalPassword += allUserInput[index]
+     }
+     
+     return finalPassword;
    
 };
 
